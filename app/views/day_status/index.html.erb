@@ -1,0 +1,12 @@
+
+<%= form_with model: @day_status, local: true do |f| %>
+    <h1>日付ステータス登録</h1>    
+    <%= f.label :date, "日付" %> 
+    <%= f.date_select :date %>  
+    <%= f.label :user_id, "ユーザー" %>
+    <%= f.collection_select :user_id, User.all, :id, :name, { prompt: "ユーザーを選択してください" } %>
+    <%= f.submit "登録" %> 
+<% end %>
+
+
+

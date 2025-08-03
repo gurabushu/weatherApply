@@ -1,0 +1,2 @@
+class DayStatus < ApplicationRecord
+end
