@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  devise_for :users
+ root "day_status#index" #トップページ
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+ resources :users, only: [:index, :create] #ユーザー登録のためのルーティング
+  # indexアクションとcreateアクションのみを許可
+  # indexアクションはユーザー一覧表示、createアクションはユーザー登録を行う
+  # これにより、ユーザーの一覧表示と新規登録が可能になる
+  # 他のアクションは許可されていないため、セキュリティが強化される
+  # 例えば、showやeditアクションは許可されていないため、ユーザーの詳細表示や編集は行えない
+  # これにより、ユーザーの情報を保護し、
+  # 不要な操作を制限することができる
+  # ルーティングの設定により、ユーザー登録のためのURLが
+  # /user/indexと/user/createにマッピングされる
+  # これにより、ユーザーは新規登録フォームにアクセスできるよう
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  resources :day_statuses, only:[:index, :create]
+  # 日付ステータスの一覧表示と新規登録を行うための
+  # ルーティングを設定  
 end
